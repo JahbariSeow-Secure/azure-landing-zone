@@ -1,0 +1,63 @@
+{
+  "version": 4,
+  "terraform_version": "1.14.3",
+  "serial": 4,
+  "lineage": "fa9841e0-517c-0af6-6e10-6de92c35945f",
+  "outputs": {},
+  "resources": [
+    {
+      "module": "module.management_groups",
+      "mode": "managed",
+      "type": "azurerm_management_group",
+      "name": "landing_zone",
+      "provider": "provider[\"registry.terraform.io/hashicorp/azurerm\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "display_name": "Landing Zone",
+            "id": "/providers/Microsoft.Management/managementGroups/mg-landing-zone",
+            "name": "mg-landing-zone",
+            "parent_management_group_id": "/providers/Microsoft.Management/managementGroups/cfa792cf-7768-4341-8857-81754c2afa1f",
+            "subscription_ids": [],
+            "tenant_scoped_id": "/tenants/cfa792cf-7768-4341-8857-81754c2afa1f/providers/Microsoft.Management/managementGroups/mg-landing-zone",
+            "timeouts": null
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjoxODAwMDAwMDAwMDAwLCJkZWxldGUiOjE4MDAwMDAwMDAwMDAsInJlYWQiOjMwMDAwMDAwMDAwMCwidXBkYXRlIjoxODAwMDAwMDAwMDAwfX0="
+        }
+      ]
+    },
+    {
+      "module": "module.policy",
+      "mode": "managed",
+      "type": "azurerm_policy_definition",
+      "name": "require_tag_environment",
+      "provider": "provider[\"registry.terraform.io/hashicorp/azurerm\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "description": "",
+            "display_name": "Require environment tag",
+            "id": "/subscriptions/11ff11e0-ab54-4f1e-a7d2-66986dba8a7b/providers/Microsoft.Authorization/policyDefinitions/require-tag-environment",
+            "management_group_id": "",
+            "metadata": "{\"createdBy\":\"ca1f12a4-4a72-4d81-a114-0d6608c8571b\",\"createdOn\":\"2026-04-09T01:57:40.2198648Z\",\"updatedBy\":null,\"updatedOn\":null}",
+            "mode": "All",
+            "name": "require-tag-environment",
+            "parameters": "",
+            "policy_rule": "{\"if\":{\"equals\":\"\",\"field\":\"tags['environment']\"},\"then\":{\"effect\":\"deny\"}}",
+            "policy_type": "Custom",
+            "role_definition_ids": [],
+            "timeouts": null
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjoxODAwMDAwMDAwMDAwLCJkZWxldGUiOjE4MDAwMDAwMDAwMDAsInJlYWQiOjMwMDAwMDAwMDAwMCwidXBkYXRlIjoxODAwMDAwMDAwMDAwfX0="
+        }
+      ]
+    }
+  ],
+  "check_results": null
+}
