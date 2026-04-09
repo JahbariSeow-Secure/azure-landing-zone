@@ -1,4 +1,3 @@
-@"
 module "management_groups" {
   source       = "./modules/management-groups"
   display_name = "Landing Zone"
@@ -22,4 +21,3 @@ module "rbac" {
   platform_object_id = "adf1cf26-8411-4be4-b76c-16ad514df6ad"
   workload_object_id = "adf1cf26-8411-4be4-b76c-16ad514df6ad"
 }
-"@ | Out-File -FilePath main.tf -Encoding utf8
