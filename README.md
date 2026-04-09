@@ -116,3 +116,49 @@ audit trail on every change.
   enabled so state can be recovered if corrupted
 
 ## Pipeline Structure
+## Security Controls
+
+- OIDC authentication — no long-lived credentials stored anywhere
+- GitHub secrets for all sensitive values — never in code
+- State stored in Azure Storage with versioning enabled
+- Soft delete enabled on state backend — 7 day recovery window
+
+## Screenshots
+
+### Pipeline success
+![Pipeline success](screenshots/pipeline-success.png)
+Full GitHub Actions workflow completing successfully. Every step green —
+checkout, Azure login, Terraform init, plan, and apply.
+
+### Terraform plan output
+![Terraform plan output](screenshots/terraform-plan-output.png)
+Pipeline showing the plan output before applying. In a pull request workflow
+this is what a reviewer would approve before changes go live.
+
+### Terraform apply output
+![Terraform apply output](screenshots/terraform-apply-output.png)
+Apply completing inside the pipeline with no manual intervention. No terminal,
+no typing yes — fully automated.
+
+### GitHub secrets
+![GitHub secrets](screenshots/github-secrets.png)
+Three secrets configured for OIDC authentication — client ID, tenant ID, and
+subscription ID. No passwords or keys stored anywhere.
+
+### Workflow YAML
+![Workflow YAML](screenshots/workflow-yaml.png)
+The pipeline configuration showing OIDC permissions, working directory, and
+all Terraform steps.
+
+### Terraform state backend
+![Terraform state backend](screenshots/terraform-state-backend.png)
+State file stored in Azure Storage. Both the pipeline and local Terraform
+share the same state file — no conflicts, no duplicate deployments.
+
+## Skills Demonstrated
+
+- GitHub Actions CI/CD pipeline for infrastructure automation
+- OIDC federated authentication to Azure — no stored secrets
+- Remote Terraform state management with Azure Storage backend
+- State versioning and recovery controls
+- Automated plan and apply on every commit
