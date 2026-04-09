@@ -1,3 +1,51 @@
+# Azure Enterprise Landing Zone
+
+## Business Problem
+
+Enterprise cloud environments without governance controls become unmanageable fast. Teams deploy resources with no tagging standards, no network isolation, and no access controls. The result is unpredictable cloud spend, security gaps, and no visibility into who owns what.
+
+This project builds the foundation that prevents that — a governed, secure, and repeatable Azure landing zone deployed entirely through Infrastructure as Code.
+
+## What This Solves
+
+- No tagging standards — policy enforcement blocks untagged resources automatically
+- Flat networking with no isolation — hub and spoke architecture separates platform and workload traffic
+- Uncontrolled access — RBAC ensures teams only access what they own
+- Manual deployments — everything is code, repeatable and version controlled
+
+## Architecture
+## What This Builds
+
+| Module | Resource | Purpose |
+|---|---|---|
+| management-groups | mg-landing-zone | Top level governance container |
+| policy | Custom policy + assignment | Enforce environment tagging |
+| networking | vnet-hub, vnet-spoke1, peering | Isolated hub and spoke network |
+| rbac | Role assignments | Separate platform and workload access |
+
+## Module Structure
+
+## Prerequisites
+
+- Azure CLI installed and authenticated
+- Terraform >= 1.6.0
+- Azure subscription with Owner or Contributor + Policy permissions
+
+## How to Deploy
+```bash
+az login
+terraform init
+terraform plan
+terraform apply
+```
+
+## Governance Controls
+
+- Resources without an environment tag are denied at the management group level
+- Platform team scoped to hub network only
+- Workload team scoped to spoke network only
+- All infrastructure version controlled and repeatable
+
 ## Screenshots
 
 ### Folder structure
@@ -35,3 +83,11 @@ Contributor role assigned to the platform team on vnet-hub. Platform engineers c
 ### IAM spoke
 ![IAM spoke](screenshots/iam-spoke.png)
 Contributor role assigned to the workload team on vnet-spoke1. App teams can deploy into their own spoke without touching the central hub network.
+
+## Skills Demonstrated
+
+- Infrastructure as Code with modular Terraform
+- Azure governance, policy, and tagging standards
+- Hub and spoke enterprise networking
+- RBAC and identity separation
+- Real world debugging and troubleshooting
