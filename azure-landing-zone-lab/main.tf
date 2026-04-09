@@ -18,6 +18,6 @@ module "rbac" {
   source             = "./modules/rbac"
   platform_scope     = module.networking.hub_vnet_id
   workload_scope     = module.networking.spoke1_vnet_id
-  platform_object_id = "ca1f12a4-4a72-4d81-a114-0d6608c8571b"
-  workload_object_id = "ca1f12a4-4a72-4d81-a114-0d6608c8571b"
+  platform_object_id = "adf1cf26-8411-4be4-b76c-16ad514df6ad"
+  workload_object_id = "adf1cf26-8411-4be4-b76c-16ad514df6ad"
 }
