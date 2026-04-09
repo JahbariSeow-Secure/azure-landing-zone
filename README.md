@@ -91,3 +91,28 @@ Contributor role assigned to the workload team on vnet-spoke1. App teams can dep
 - Hub and spoke enterprise networking
 - RBAC and identity separation
 - Real world debugging and troubleshooting
+---
+
+# CI/CD Pipeline — Terraform Automation with GitHub Actions
+
+## Business Problem
+
+Manual Terraform deployments are error-prone and unauditable. Anyone can run
+terraform apply from their laptop with no review, no approval, and no record
+of what changed or who changed it. At enterprise scale that becomes a
+compliance and stability risk.
+
+This project automates the entire infrastructure deployment lifecycle through
+a GitHub Actions pipeline — no manual commands, no portal clicking, full
+audit trail on every change.
+
+## What This Automates
+
+- Every commit to main triggers terraform plan and terraform apply automatically
+- Pull requests trigger terraform plan so reviewers can see what will change
+  before it gets merged
+- Azure authentication uses OIDC federated credentials — no stored secrets
+- Terraform state is stored in Azure Storage with versioning and soft delete
+  enabled so state can be recovered if corrupted
+
+## Pipeline Structure
