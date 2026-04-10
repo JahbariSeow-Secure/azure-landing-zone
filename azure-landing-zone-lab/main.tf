@@ -27,7 +27,7 @@ module "monitoring" {
   resource_group_name = "rg-hub"
   hub_vnet_id         = module.networking.hub_vnet_id
   spoke_vnet_id       = module.networking.spoke1_vnet_id
-  subscription_id     = "7b3cde72-e4eb-4411-bab1-dcd81a2f7ca3"
+  subscription_id     = "/subscriptions/7b3cde72-e4eb-4411-bab1-dcd81a2f7ca3"
   management_group_id = module.management_groups.id
   alert_email         = "leeseow12@gmail.com"
 }
