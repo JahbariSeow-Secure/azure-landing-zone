@@ -203,3 +203,10 @@ to main — branch protection rules block direct commits.
 - The process is enforced at the pipeline level not by convention
 
 ### Branch strategy
+### Skills demonstrated
+
+- Git-based change management workflow using pull requests
+- Automated PR creation using GitHub Actions
+- Environment-based deployment controls separating plan and apply
+- Branch protection and GitHub security settings
+- Real-world debugging of GitHub Actions permissions and workflow failures
