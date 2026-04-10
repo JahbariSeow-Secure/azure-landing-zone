@@ -162,3 +162,51 @@ share the same state file — no conflicts, no duplicate deployments.
 - Remote Terraform state management with Azure Storage backend
 - State versioning and recovery controls
 - Automated plan and apply on every commit
+---
+
+## Change Management Workflow
+
+### The problem with uncontrolled deployments
+
+Without a change management process any engineer can deploy anything to
+production at any time with no review and no record. At enterprise scale
+that creates compliance failures, outages, and no audit trail.
+
+### How this pipeline enforces change control
+
+Every infrastructure change follows the same path with no exceptions.
+
+**Pull request — plan only**
+
+When a branch is pushed and a pull request is opened the pipeline
+automatically runs terraform plan and posts the output as a comment on
+the PR. Reviewers see exactly what will change before approving — which
+resources get added, modified, or destroyed. Nothing is ambiguous.
+
+**Merge to main — apply**
+
+Only after a pull request is reviewed and approved does the merge to main
+trigger terraform apply. The change deploys automatically with no manual
+intervention.
+
+**Automated PR creation**
+
+Pull requests are created automatically by the pipeline when a branch is
+pushed. Engineers cannot bypass the review process by pushing directly
+to main — branch protection rules block direct commits.
+
+**What this enforces**
+
+- No infrastructure change reaches production without peer review
+- Every deployment is tied to a pull request with full context
+- GitHub provides the audit trail — who approved what and when
+- The process is enforced at the pipeline level not by convention
+
+### Branch strategy
+### Skills demonstrated
+
+- Git-based change management workflow using pull requests
+- Automated PR creation using GitHub Actions
+- Environment-based deployment controls separating plan and apply
+- Branch protection and GitHub security settings
+- Real-world debugging of GitHub Actions permissions and workflow failures
