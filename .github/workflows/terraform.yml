@@ -16,6 +16,7 @@ jobs:
   terraform:
     name: Terraform Plan and Apply
     runs-on: ubuntu-latest
+
     defaults:
       run:
         working-directory: azure-landing-zone-lab
