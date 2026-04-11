@@ -335,3 +335,54 @@ a rotation function. Secret values never appear in code that lives in GitHub.
 
 Applications use managed identity to authenticate to Key Vault at runtime.
 No credentials stored anywhere — Azure handles the identity automatically.
+
+## Secrets Stored
+
+| Secret Name | Purpose |
+|---|---|
+| db-connection-string | Azure SQL connection string for ADF pipeline |
+| storage-account-key | Storage account access for Data Lake |
+| api-key | External API authentication for application layer |
+
+## Screenshots
+
+### Key Vault overview
+![Key Vault overview](screenshots/key-vault-overview.png)
+Key Vault deployed in East US with RBAC authorization enabled and
+purge protection on. Standard SKU for enterprise workloads.
+
+### Networking
+![Key Vault networking](screenshots/key-vault-networking.png)
+Public network access disabled. Private endpoint connected inside
+snet-hub. Trusted Azure services bypass enabled for pipeline access.
+
+### Access control
+![Key Vault IAM](screenshots/key-vault-iam.png)
+RBAC role assignments — Key Vault Administrator for the platform team
+and Key Vault Secrets Officer for the pipeline identity.
+
+### Diagnostic settings
+![Key Vault diagnostics](screenshots/key-vault-diagnostics.png)
+AuditEvent and AzurePolicyEvaluationDetails logs flowing to the central
+Log Analytics workspace. Every secret access is logged and queryable.
+
+### Secrets
+![Key Vault secrets](screenshots/key-vault-secrets.png)
+Three secrets stored for the data platform layer — database connection
+string, storage account key, and API key. Values retrieved at runtime
+by applications using managed identity.
+
+### Pipeline deployment
+![Key Vault pipeline](screenshots/key-vault-pipeline.png)
+Key Vault deployed through GitHub Actions pipeline. OIDC authentication,
+remote state in Azure Storage, PR review enforced before production.
+
+## Skills Demonstrated
+
+- Azure Key Vault deployment and configuration through Terraform
+- RBAC authorization mode for enterprise-scale secret management
+- Private endpoint network isolation with DNS resolution
+- Zero trust secrets access using managed identity
+- Audit logging integrated with central Log Analytics workspace
+- Soft delete and purge protection for disaster recovery
+- Secret lifecycle management without credentials in code
