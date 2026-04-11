@@ -5,3 +5,6 @@ output "hub_vnet_id" {
 output "spoke1_vnet_id" {
   value = azurerm_virtual_network.spoke1.id
 }
+output "hub_subnet_id" {
+  value = azurerm_subnet.hub_subnet.id
+}
