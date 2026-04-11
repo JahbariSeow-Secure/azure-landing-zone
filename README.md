@@ -210,3 +210,78 @@ to main — branch protection rules block direct commits.
 - Environment-based deployment controls separating plan and apply
 - Branch protection and GitHub security settings
 - Real-world debugging of GitHub Actions permissions and workflow failures
+---
+
+## Monitoring & Observability
+
+## Business Problem
+
+Deploying resources without monitoring is flying blind. When something breaks
+you have no logs to query, no alerts to catch it early, and no audit trail
+to understand what changed. At enterprise scale that means outages go
+undetected and security incidents go unnoticed.
+
+## What This Builds
+
+| Resource | Purpose |
+|---|---|
+| Log Analytics workspace | Central database for all platform logs |
+| Diagnostic settings on VNets | Network metrics and NSG events flow to workspace |
+| Subscription activity logs | Full audit trail of every resource change and policy evaluation |
+| Activity log alert | Fires every time a policy denial occurs |
+| Action group | Emails platform team when alerts fire |
+| DeployIfNotExists policy | Automatically configures monitoring on any new VM |
+
+## Why DeployIfNotExists Matters
+
+Most teams add monitoring manually per resource. The problem is someone
+always forgets. The DeployIfNotExists policy enforces it at the platform
+level — it does not matter how the VM was created or who created it.
+The policy detects it and deploys diagnostic settings automatically.
+
+## Cost Conscious Logging
+
+Ingesting everything is a common mistake that gets expensive fast.
+This setup ingests only what matters:
+
+- Subscription activity logs — free and give a full audit trail
+- NSG events and VNet metrics — low volume, high value for troubleshooting
+- Policy and security categories — directly tied to governance controls
+- Application and guest OS logs are skipped until workloads need them
+
+Monthly cost for this setup is under $1.
+
+## Screenshots
+
+### Log Analytics workspace
+![Log Analytics workspace](screenshots/log-analytics-workspace.png)
+Central workspace receiving logs from all platform resources. All KQL
+queries run against this workspace.
+
+### Alert rule
+![Alert rule](screenshots/alert-rule.png)
+Activity log alert firing on every policy denial event. Governance
+violations are tracked not just blocked.
+
+### Action group
+![Action group](screenshots/action-group.png)
+Email notification configured for the platform team. In enterprise
+environments this would point to ServiceNow or PagerDuty.
+
+### Diagnostic policy
+![Diagnostic policy](screenshots/diagnostic-policy.png)
+DeployIfNotExists policy assigned at the management group scope.
+Any new VM automatically gets diagnostic settings configured.
+
+### VNet diagnostic setting
+![VNet diagnostic setting](screenshots/vnet-diagnostic-setting.png)
+Hub VNet diagnostic setting pointing to the central Log Analytics
+workspace. NSG events and metrics flow here automatically.
+
+## Skills Demonstrated
+
+- Azure Monitor and Log Analytics workspace design
+- Cost conscious log ingestion strategy
+- DeployIfNotExists policy for automated monitoring enforcement
+- Activity log alerts tied to governance controls
+- Observability as code through Terraform
