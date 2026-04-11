@@ -44,15 +44,6 @@ resource "azurerm_private_endpoint" "key_vault" {
   }
 }
 
-resource "azurerm_key_vault_secret" "example" {
-  name         = "example-secret"
-  value        = "this-is-a-placeholder-value"
-  key_vault_id = azurerm_key_vault.main.id
-
-  depends_on = [
-    azurerm_role_assignment.admin_secret_officer
-  ]
-}
 
 resource "azurerm_monitor_diagnostic_setting" "key_vault" {
   name                       = "diag-key-vault"
