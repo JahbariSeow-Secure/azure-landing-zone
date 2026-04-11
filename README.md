@@ -285,3 +285,53 @@ workspace. NSG events and metrics flow here automatically.
 - DeployIfNotExists policy for automated monitoring enforcement
 - Activity log alerts tied to governance controls
 - Observability as code through Terraform
+
+---
+
+## Key Vault & Secrets Management
+
+## Business Problem
+
+Secrets — database passwords, API keys, connection strings, certificates —
+have to live somewhere. Without a centralized secrets manager they end up
+hardcoded in application code, stored in environment variables on servers,
+or passed around in emails. Any of those means anyone with access to the
+code or the server can see them. At enterprise scale that is a compliance
+failure waiting to happen.
+
+## What This Builds
+
+| Resource | Purpose |
+|---|---|
+| Azure Key Vault | Centralized secrets manager with RBAC authorization |
+| Private endpoint | Network isolation — vault only reachable inside hub VNet |
+| Role assignments | Pipeline gets Secrets Officer, admin gets Administrator |
+| Diagnostic settings | All audit logs flow to central Log Analytics workspace |
+| Activity log alert | Fires if Key Vault is deleted |
+
+## Key Design Decisions
+
+**RBAC mode over access policies**
+Access policies are a flat list that does not scale and cannot integrate
+with PIM for just-in-time access. RBAC mode uses the same role system as
+everything else in Azure — consistent, auditable, group-based permissions.
+
+**Private endpoint with public access disabled**
+DNS resolves the vault URL to a private IP inside the hub subnet. Traffic
+never touches the public internet. Someone with the vault URL but no
+network access gets a connection refused — not even an auth prompt.
+
+**Soft delete with 90 day retention and purge protection**
+If a secret gets deleted during an incident you have 90 days to recover it.
+Purge protection means nobody can permanently destroy secrets even with
+admin access — critical for compliance environments.
+
+**No secrets in Terraform code**
+Terraform deploys the vault and configures access. Actual secret values
+are loaded separately — either manually by a secrets manager or through
+a rotation function. Secret values never appear in code that lives in GitHub.
+
+## How Applications Access Secrets
+
+Applications use managed identity to authenticate to Key Vault at runtime.
+No credentials stored anywhere — Azure handles the identity automatically.
